@@ -1,21 +1,33 @@
 SpreeProductZoom
-================
+===================
 
-Introduction goes here.
+A Spree extension that allows product images to be enlarged using a lightbox.
+The lighbox is powered by [fancyBox](http://fancyapps.com/fancybox/).
 
 
-Example
+Installation	
 =======
 
-Example goes here.
+Add this extension to your Gemfile:
 
-Testing
--------
+```ruby
+gem "spree_social_products", :git => "git://github.com/spree/spree_product_zoom.git"
+```
 
-Be sure to bundle your dependencies and then create a dummy test app for the specs to run against.
+Then run:
 
-    $ bundle
-    $ bundle exec rake test_app
-    $ bundle exec rspec spec
+```
+bundle install
+```
 
-Copyright (c) 2012 [name of extension creator], released under the New BSD License
+Run:
+
+```
+bundle exec rails g spree_social_products:install
+```
+
+in order to copy over the required css and js files.
+
+Once installation is complete your product images can be zoomed by clicking on the "Zoom In" button beneath an image.
+
+Copyright (c) 2012 John Dyer, released under the New BSD License
