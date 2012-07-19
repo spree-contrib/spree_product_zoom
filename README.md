@@ -1,8 +1,8 @@
 SpreeProductZoom
 ===================
 
-A Spree extension that allows product images to be enlarged using a lightbox.
-The lighbox is powered by [fancyBox](http://fancyapps.com/fancybox/).
+A Spree extension that adds lightbox zoom functionality for product images.
+The lightbox is powered by [fancyBox](http://fancyapps.com/fancybox/).
 
 
 Installation	
