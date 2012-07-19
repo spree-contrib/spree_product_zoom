@@ -3,16 +3,14 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.name        = 'spree_product_zoom'
   s.version     = '1.1.2'
-  s.summary     = 'TODO: Add gem summary here'
-  s.description = 'TODO: Add (optional) gem description here'
+  s.summary     = 'Add product image zoom functionality via a lightbox'
   s.required_ruby_version = '>= 1.8.7'
 
-  # s.author    = 'You'
-  # s.email     = 'you@example.com'
-  # s.homepage  = 'http://www.spreecommerce.com'
+  s.author    = 'John Dyer'
+  s.email     = 'jdyer@spreecommerce.com'
+  s.homepage  = 'http://www.spreecommerce.com'
 
-  #s.files       = `git ls-files`.split("\n")
-  #s.test_files  = `git ls-files -- {test,spec,features}/*`.split("\n")
+  .files       = `git ls-files`.split("\n")
   s.require_path = 'lib'
   s.requirements << 'none'
 
