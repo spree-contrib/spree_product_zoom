@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.email     = 'jdyer@spreecommerce.com'
   s.homepage  = 'http://www.spreecommerce.com'
 
-  .files       = `git ls-files`.split("\n")
+  s.files       = `git ls-files`.split("\n")
   s.require_path = 'lib'
   s.requirements << 'none'
 
