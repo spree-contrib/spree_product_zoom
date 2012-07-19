@@ -11,7 +11,7 @@ Installation
 Add this extension to your Gemfile:
 
 ```ruby
-gem "spree_social_products", :git => "git://github.com/spree/spree_product_zoom.git"
+gem "spree_product_zoom", :git => "git://github.com/spree/spree_product_zoom.git"
 ```
 
 Then run:
