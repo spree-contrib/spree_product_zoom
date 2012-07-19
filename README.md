@@ -23,7 +23,7 @@ bundle install
 Run:
 
 ```
-bundle exec rails g spree_social_products:install
+bundle exec rails g spree_product_zoom:install
 ```
 
 in order to copy over the required css and js files.
