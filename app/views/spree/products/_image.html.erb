@@ -1,5 +1,9 @@
 <% if image %> 
-  <%= link_to image_tag(image.attachment.url(:product), :itemprop => "image"), image.attachment.url(:original), :class => 'fancybox' %>
+  <%= image_tag(image.attachment.url(:product), :itemprop => "image") %>
+  <br />
+  <%= link_to image_tag('zoom.gif'), image.attachment.url(:original), :class => 'fancybox' %>
 <% else %>
-  <%= link_to product_image(@product, :itemprop => "image"), @product.images.first.attachment.url(:original), :class => 'fancybox' %>
+  <%= product_image(@product, :itemprop => "image") %>
+  <br />
+  <%= link_to image_tag('zoom.gif'), @product.images.first.attachment.url(:original), :class => 'fancybox' %>
 <% end %>
