@@ -5,5 +5,7 @@
 <% else %>
   <%= product_image(@product, :itemprop => "image") %>
   <br />
-  <%= link_to image_tag('zoom.gif'), @product.images.first.attachment.url(:original), :class => 'fancybox zoom-image' %>
+  <% unless @product.images.empty? %>
+    <%= link_to image_tag('zoom.gif'), @product.images.first.attachment.url(:original), :class => 'fancybox zoom-image' %>
+  <% end %>
 <% end %>
