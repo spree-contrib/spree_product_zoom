@@ -6,8 +6,15 @@
   <% if @product.images.empty? %>
     <%= product_image(@product, :itemprop => "large") %>
   <% else %>
-    <%= link_to product_image(@product, :itemprop => "image"), @product.images.first.attachment.url(:original), :class => 'fancybox zoom-image' %>
+    <%= link_to product_image(@product, :itemprop => "image"), @product.images.first.attachment.url(:original), :class => 'fancybox zoom-image', :rel => 'gallery' %>
     <br />
     <%= link_to image_tag('zoom.gif'), @product.images.first.attachment.url(:original), :class => 'fancybox zoom-image' %>
+    <div id="gallery" style="display:none;">
+      <% @product.images.each do |img| %>
+        <% unless img == @product.images.first %>
+          <%= link_to image_tag(img.attachment.url(:product)), img.attachment.url(:original), :class => 'fancybox', :rel => 'gallery' %>
+        <% end %>
+      <% end %>
+    </div>
   <% end %>
 <% end %>

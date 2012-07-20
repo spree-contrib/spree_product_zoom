@@ -3,6 +3,11 @@ var add_image_handlers = function() {
   $('ul.thumbnails li').eq(0).addClass('selected');
 
   $('ul.thumbnails a').on('click', function(event) {
+    // Append old image to gallery and remove new main-image from gallery to
+    // prevent image duplication
+    $('#gallery').append('<a class="fancybox" rel="gallery"><img src="' + $(".zoom-image").attr("href") + '" /></a>');
+    $('#gallery a[href="' + $(this).data("original") + '"]').remove();
+
     $("#main-image").data('selectedThumb', $(event.currentTarget).attr('href'));
     $("#main-image").data('selectedThumbId', $(event.currentTarget).parent().attr('id'));
     $('a.zoom-image').attr('href', $(this).data('original'));
