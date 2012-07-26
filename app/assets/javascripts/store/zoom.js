@@ -1,4 +1,14 @@
 var add_image_handlers = function() {
+  // Remove duplicate image from gallery
+  $("#main-image a.large-image").click(function(event) {
+    $('#main-image a.click-to-zoom').attr('rel', '');
+  });
+
+  // Remove duplicate image from gallery
+  $("#main-image a.click-to-zoom").click(function(event) {
+    $('#main-image a.large-image').attr('rel', '');
+  });
+
   $("#main-image").data('selectedThumb', $('#main-image img').first().attr('src'));
   $('ul.thumbnails li').eq(0).addClass('selected');
 
@@ -43,5 +53,10 @@ var show_variant_images = function(variant_id) {
 }
 
 $(document).ready(function() {
-    $(".fancybox").fancybox();
+    $(".fancybox").fancybox({
+      'beforeClose': function() {
+        $('#main-image a.click-to-zoom').attr('rel', 'gallery');
+        $('#main-image a.large-image').attr('rel', 'gallery');
+      }
+    });
 });
