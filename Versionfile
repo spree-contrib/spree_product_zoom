@@ -1,2 +1,2 @@
 '1.2.x'  => { :branch => 'master' }
-'1.1.x'  => { :tag => 'v1.1.2' }
+'1.1.x'  => { :branch => '1-1-stable' }
