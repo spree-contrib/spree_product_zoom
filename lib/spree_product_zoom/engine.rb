@@ -1,3 +1,5 @@
+module Spree::ProductZoom; end
+
 module SpreeProductZoom
   class Engine < Rails::Engine
     require 'spree/core'
@@ -9,6 +11,10 @@ module SpreeProductZoom
     # use rspec for tests
     config.generators do |g|
       g.test_framework :rspec
+    end
+
+    initializer "spree.product_zoom.preferences", :after => "spree.environment" do |app|
+      Spree::ProductZoom::Config = Spree::ProductZoomConfiguration.new
     end
 
     def self.activate
