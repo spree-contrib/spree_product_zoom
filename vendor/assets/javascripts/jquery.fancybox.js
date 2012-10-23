@@ -294,18 +294,33 @@
 				start();
 			}
 		},
+			// original block
+		// next: function () {
+		// 	if (F.current) {
+		// 		F.jumpto(F.current.index + 1);
+		// 	}
+		// },
 
-		next: function () {
-			if (F.current) {
-				F.jumpto(F.current.index + 1);
-			}
-		},
+		// prev: function () {
+		// 	if (F.current) {
+		// 		F.jumpto(F.current.index - 1);
+		// 	}
+		// },
+		//
+			next: function () {
+	       if (F.current) {
+		  F.jumpto(F.current.index + 1);
+		  isForward = true;
+		    }
+	       },
 
-		prev: function () {
-			if (F.current) {
-				F.jumpto(F.current.index - 1);
-			}
-		},
+	       prev: function () {
+	       if (F.current) {
+		  F.jumpto(F.current.index - 1);
+		  isForward = false;
+		    }
+	       },
+ 
 
 		jumpto: function (index) {
 			if (!F.current) {
@@ -1284,11 +1299,18 @@
 
 			startPos.opacity = 0;
 
-			if (elastic) {
-				startPos.top = getValue(parseInt(startPos.top, 10) - 200);
-				endPos.top = '+=200px';
-			}
-
+			// new line below
+			if(!isForward){
+			          // move left (backwards)
+ 
+			 if (elastic) { 
+				/* startPos.top = getValue(parseInt(startPos.top, 10) - 200); */
+				startPos.left = getValue(parseInt(startPos.left, 10) + 720);
+				 
+				/* endPos.top = '+=200px'; */
+				endPos.left = '-=720px';
+				 
+				// new block
 			wrap.css(startPos)
 				.show()
 				.animate(endPos, {
@@ -1296,6 +1318,26 @@
 					easing   : current.nextEasing,
 					complete : F._afterZoomIn
 				});
+			 } 
+			}
+
+			else
+
+			   // Move Forwards
+
+			{
+			   if (elastic) { 
+			   startPos.left = getValue(parseInt(startPos.left, 10) - 720); 
+			   endPos.left = '+=720px'; 
+			   wrap.css(startPos)
+			      .show()
+			      .animate(endPos, {
+				 duration : effect === 'none' ? 0 : current.nextSpeed,
+				 easing   : current.nextEasing,
+				 complete : F._afterZoomIn
+			      });
+			   }
+			}
 		},
 
 		changeOut: function () {
@@ -1309,8 +1351,21 @@
 
 			wrap.removeClass('fancybox-opened');
 
+			// new block
+			var leftAmt;
+			if(isForward){
+			      leftAmt = '+=720px';
+			  } else {
+			      leftAmt = '-=720px';
+			  }
+ 
+			// end new block
 			if (effect === 'elastic') {
-				endPos.top = '+=200px';
+				/* endPos.top = '+=200px'; */
+				/* endPos.left = '+=720px'; */
+				endPos.left = leftAmt;
+				 
+				 
 			}
 
 			wrap.animate(endPos, {
