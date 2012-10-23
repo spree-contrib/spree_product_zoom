@@ -294,18 +294,33 @@
 				start();
 			}
 		},
+			// original block
+		// next: function () {
+		// 	if (F.current) {
+		// 		F.jumpto(F.current.index + 1);
+		// 	}
+		// },
 
-		next: function () {
-			if (F.current) {
-				F.jumpto(F.current.index + 1);
-			}
-		},
+		// prev: function () {
+		// 	if (F.current) {
+		// 		F.jumpto(F.current.index - 1);
+		// 	}
+		// },
+		//
+			next: function () {
+	       if (F.current) {
+		  F.jumpto(F.current.index + 1);
+		  isForward = true;
+		    }
+	       },
 
-		prev: function () {
-			if (F.current) {
-				F.jumpto(F.current.index - 1);
-			}
-		},
+	       prev: function () {
+	       if (F.current) {
+		  F.jumpto(F.current.index - 1);
+		  isForward = false;
+		    }
+	       },
+ 
 
 		jumpto: function (index) {
 			if (!F.current) {
@@ -1284,11 +1299,10 @@
 
 			startPos.opacity = 0;
 
-			if (elastic) {
-				startPos.top = getValue(parseInt(startPos.top, 10) - 200);
-				endPos.top = '+=200px';
-			}
-
+			if(!isForward){
+			 if (elastic) { 
+				startPos.left = getValue(parseInt(startPos.left, 10) + 720);
+				endPos.left = '-=720px';
 			wrap.css(startPos)
 				.show()
 				.animate(endPos, {
@@ -1296,6 +1310,24 @@
 					easing   : current.nextEasing,
 					complete : F._afterZoomIn
 				});
+			 } 
+			}
+
+			else
+
+			{
+			   if (elastic) { 
+			   startPos.left = getValue(parseInt(startPos.left, 10) - 720); 
+			   endPos.left = '+=720px'; 
+			   wrap.css(startPos)
+			      .show()
+			      .animate(endPos, {
+				 duration : effect === 'none' ? 0 : current.nextSpeed,
+				 easing   : current.nextEasing,
+				 complete : F._afterZoomIn
+			      });
+			   }
+			}
 		},
 
 		changeOut: function () {
@@ -1308,9 +1340,14 @@
 				};
 
 			wrap.removeClass('fancybox-opened');
-
+			var leftAmt;
+			if(isForward){
+			      leftAmt = '+=720px';
+			  } else {
+			      leftAmt = '-=720px';
+			  }
 			if (effect === 'elastic') {
-				endPos.top = '+=200px';
+				endPos.left = leftAmt;
 			}
 
 			wrap.animate(endPos, {
