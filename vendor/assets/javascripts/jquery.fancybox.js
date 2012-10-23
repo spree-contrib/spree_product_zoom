@@ -1299,18 +1299,10 @@
 
 			startPos.opacity = 0;
 
-			// new line below
 			if(!isForward){
-			          // move left (backwards)
- 
 			 if (elastic) { 
-				/* startPos.top = getValue(parseInt(startPos.top, 10) - 200); */
 				startPos.left = getValue(parseInt(startPos.left, 10) + 720);
-				 
-				/* endPos.top = '+=200px'; */
 				endPos.left = '-=720px';
-				 
-				// new block
 			wrap.css(startPos)
 				.show()
 				.animate(endPos, {
@@ -1322,8 +1314,6 @@
 			}
 
 			else
-
-			   // Move Forwards
 
 			{
 			   if (elastic) { 
@@ -1350,22 +1340,14 @@
 				};
 
 			wrap.removeClass('fancybox-opened');
-
-			// new block
 			var leftAmt;
 			if(isForward){
 			      leftAmt = '+=720px';
 			  } else {
 			      leftAmt = '-=720px';
 			  }
- 
-			// end new block
 			if (effect === 'elastic') {
-				/* endPos.top = '+=200px'; */
-				/* endPos.left = '+=720px'; */
 				endPos.left = leftAmt;
-				 
-				 
 			}
 
 			wrap.animate(endPos, {
