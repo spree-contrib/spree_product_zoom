@@ -35,10 +35,10 @@ Configuration
 
 spree_product_zoom has only one configuration option, the paperclip image style to use when zooming in on an image. It defaults to `:original`.
 
-To change:
+To change the default style from `:original` create a file config/initializers/spree_product_zoom.rb with the following content:
 
 ```
-Spree::ProductZoom::Config.default_image_style = :image_style
+Spree::ProductZoom::Config[:default_image_style] = :your_image_style
 ```
 
 Copyright (c) 2012 John Dyer, released under the New BSD License
