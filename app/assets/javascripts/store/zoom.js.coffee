@@ -17,6 +17,10 @@ add_image_handlers = ->
     ($ 'img.click-to-zoom').attr 'src', '/assets/zoom.gif'
     ($ '#main-image img').first().attr 'src', ($ '#main-image').data('selectedThumb')
 
+  ($ 'img.click-to-zoom').on 'click', (event) ->
+    ($ '.fancybox')[0].click()
+    event.preventDefault()
+
 show_variant_images = (variant_id) ->
   ($ 'li.vtmb').hide()
   ($ 'li.vtmb-' + variant_id).show()
