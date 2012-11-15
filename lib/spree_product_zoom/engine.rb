@@ -13,7 +13,9 @@ module SpreeProductZoom
       g.test_framework :rspec
     end
 
-    initializer "spree.product_zoom.preferences", :after => "spree.environment" do |app|
+    initializer("spree.product_zoom.preferences", 
+                :after => "spree.environment",
+                :before => :load_config_initializers) do |app|
       Spree::ProductZoom::Config = Spree::ProductZoomConfiguration.new
     end
 
