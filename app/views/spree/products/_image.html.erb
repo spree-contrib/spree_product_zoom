@@ -1,4 +1,4 @@
-<% if image %> 
+<% if defined?(image) && image %> 
   <%= link_to image_tag(image.attachment.url(:product), :itemprop => "image"), image.attachment.url(:original), :class => 'fancybox zoom-image' %>
   <br />
   <%= link_to image_tag('zoom.gif'), image.attachment.url(:original), :class => 'fancybox zoom-image' %>
