@@ -13,6 +13,10 @@ module SpreeProductZoom
       g.test_framework :rspec
     end
 
+    initializer :assets do |config|
+      Rails.application.config.assets.precompile += %w( store/fancybox_*.* store/blank.gif )
+    end
+
     initializer("spree.product_zoom.preferences", 
                 :after => "spree.environment",
                 :before => :load_config_initializers) do |app|
