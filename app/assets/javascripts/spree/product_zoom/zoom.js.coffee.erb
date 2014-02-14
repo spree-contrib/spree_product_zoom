@@ -4,21 +4,31 @@ add_image_handlers = ->
   ($ 'ul.thumbnails a').on 'click', (event) ->
     ($ '#main-image').data 'selectedThumb', ($ event.currentTarget).attr('href')
     ($ '#main-image').data 'selectedThumbId', ($ event.currentTarget).parent().attr('id')
+    ($ '#main-image').data 'index', ($ event.currentTarget).parent().index()
+
     ($ this).mouseout ->
       ($ 'ul.thumbnails li').removeClass 'selected'
       ($ event.currentTarget).parent('li').addClass 'selected'
     false
 
   ($ 'ul.thumbnails li').on 'mouseenter', (event) ->
-    ($ 'img.click-to-zoom').attr 'src', '/assets/zoom.gif'
+    ($ 'img.click-to-zoom').attr 'src', "<%= asset_path('zoom.gif') %>"
     ($ '#main-image img').first().attr 'src', ($ event.currentTarget).find('a').attr('href')
 
   ($ 'ul.thumbnails li').on 'mouseleave', (event) ->
-    ($ 'img.click-to-zoom').attr 'src', '/assets/zoom.gif'
+    ($ 'img.click-to-zoom').attr 'src', "<%= asset_path('zoom.gif') %>"
     ($ '#main-image img').first().attr 'src', ($ '#main-image').data('selectedThumb')
 
+  ($ 'img.zoom-click').on 'click', (event) ->
+    index = ($ '#main-image').data 'index'
+    index = 0 if !index?
+    ($ '.fancybox')[index].click()
+    event.preventDefault()
+
   ($ 'img.click-to-zoom').on 'click', (event) ->
-    ($ '.fancybox')[0].click()
+    index = ($ '#main-image').data 'index'
+    index = 0 if !index?
+    ($ '.fancybox')[index].click()
     event.preventDefault()
 
 show_variant_images = (variant_id) ->
@@ -39,7 +49,7 @@ update_variant_price = (variant) ->
   ($ '.price.selling').text(variant_price) if variant_price
 
 $ ->
-  ($ 'img.click-to-zoom').attr 'src', '/assets/zoom.gif'
+  ($ 'img.click-to-zoom').attr 'src', "<%= asset_path('zoom.gif') %>"
   add_image_handlers()
   show_variant_images ($ '#product-variants input[type="radio"]').eq(0).attr('value') if ($ '#product-variants input[type="radio"]').length > 0
   ($ '#product-variants input[type="radio"]').click (event) ->

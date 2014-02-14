@@ -6,4 +6,6 @@ else
   gem 'ruby-debug19'
 end
 
+gem 'spree', :github => "spree/spree", :branch => "2-2-stable"
+
 gemspec
