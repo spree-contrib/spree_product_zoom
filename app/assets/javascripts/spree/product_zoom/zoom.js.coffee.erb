@@ -4,6 +4,8 @@ add_image_handlers = ->
   ($ 'ul.thumbnails a').on 'click', (event) ->
     ($ '#main-image').data 'selectedThumb', ($ event.currentTarget).attr('href')
     ($ '#main-image').data 'selectedThumbId', ($ event.currentTarget).parent().attr('id')
+    ($ '#main-image').data 'index', ($ event.currentTarget).parent().index()
+
     ($ this).mouseout ->
       ($ 'ul.thumbnails li').removeClass 'selected'
       ($ event.currentTarget).parent('li').addClass 'selected'
@@ -17,8 +19,16 @@ add_image_handlers = ->
     ($ 'img.click-to-zoom').attr 'src', "<%= asset_path('zoom.gif') %>"
     ($ '#main-image img').first().attr 'src', ($ '#main-image').data('selectedThumb')
 
+  ($ 'img.zoom-click').on 'click', (event) ->
+    index = ($ '#main-image').data 'index'
+    index = 0 if !index?
+    ($ '.fancybox')[index].click()
+    event.preventDefault()
+
   ($ 'img.click-to-zoom').on 'click', (event) ->
-    ($ '.fancybox')[0].click()
+    index = ($ '#main-image').data 'index'
+    index = 0 if !index?
+    ($ '.fancybox')[index].click()
     event.preventDefault()
 
 show_variant_images = (variant_id) ->
