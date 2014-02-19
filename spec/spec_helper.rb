@@ -11,8 +11,8 @@ require 'ffaker'
 Dir[File.join(File.dirname(__FILE__), 'support/**/*.rb')].each { |f| require f }
 
 # Requires factories defined in spree_core
-require 'spree/core/testing_support/factories'
-require 'spree/core/url_helpers'
+require 'spree/testing_support/factories'
+require 'spree/testing_support/url_helpers'
 
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
