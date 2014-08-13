@@ -41,4 +41,9 @@ To change the default style from `:original` create a file config/initializers/s
 Spree::ProductZoom::Config[:default_image_style] = :your_image_style
 ```
 
-Copyright (c) 2012 John Dyer, released under the New BSD License
+License
+=======
+
+This project has been released under the New BSD License, Copyright (c) 2012 John Dyer.
+Please keep in mind that *fancyBox* has to be licensed in particular if you want to use this gem in a commercial way. See for more details: http://www.fancyapps.com/fancybox/#license
+
