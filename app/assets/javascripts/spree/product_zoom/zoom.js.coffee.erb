@@ -33,7 +33,7 @@ add_image_handlers = ->
 
 show_variant_images = (variant_id) ->
   ($ 'li.vtmb').hide()
-  ($ 'li.vtmb-' + variant_id).show()
+  ($ 'li.tmb-' + variant_id).show()
   currentThumb = ($ '#' + ($ '#main-image').data('selectedThumbId'))
   if not currentThumb.hasClass('vtmb-' + variant_id) and not currentThumb.hasClass('tmb-all')
     thumb = ($ ($ 'ul.thumbnails li:visible').eq(0))
@@ -43,6 +43,7 @@ show_variant_images = (variant_id) ->
     ($ '#main-image img').attr 'src', newImg
     ($ '#main-image').data 'selectedThumb', newImg
     ($ '#main-image').data 'selectedThumbId', thumb.attr('id')
+
 
 update_variant_price = (variant) ->
   variant_price = variant.data('price')
