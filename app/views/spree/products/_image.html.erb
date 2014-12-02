@@ -1,22 +1,21 @@
 <% if defined?(image) && image %>
   <%= link_to image_tag(image.attachment.url(:product), :itemprop => "image"), image.attachment.url(:original), :class => 'fancybox zoom-image' %>
   <br />
-  <%= link_to image_tag('zoom.gif'), image.attachment.url(:original), :class => 'fancybox zoom-image' %>
+  <%= link_to image.attachment.url(:original), :class => 'fancybox zoom-image' %>
 <% else %>
-
-  <% if @product.images.empty? and @product.variants[0].images.empty? %>
+  <% if (@product.images.empty?) and (@product.has_variants? and @product.variant_images.empty?) %>
      <%= product_image(@product, :itemprop => "large") %>
   <% else %>
     <% if @product.images.empty? %>
-      <% @p = @product.variants[0] %>
+      <% @p = @product.variants.first %>
     <% else %>
       <% @p = @product %>
     <% end %>
 
     <%= link_to product_image(@product, :itemprop => "image", :class => 'zoom-click'), @p.images.first.attachment.url(Spree::ProductZoom::Config.default_image_style), :class => 'zoom-image large-image zoom-click', :rel => 'gallery' %>
-    <br />
-
-    <%= link_to image_tag('zoom.gif', :class => 'zoom-icon click-to-zoom'), @p.images.first.attachment.url(Spree::ProductZoom::Config.default_image_style), :class => 'zoom-image click-to-zoom', :rel => 'gallery' %>
+	 <br/>
+	 <!-- PROBLEM: still in div#main-image, will be overwritten by javascript -->
+	 <%= link_to image_tag('zoom.gif', alt: 'zoom image', class: 'click-to-zoom'), @p.images.first.attachment.url(Spree::ProductZoom::Config.default_image_style), :class => 'zoom-image click-to-zoom', :rel => 'gallery' %>
 
     <div id="gallery" style="display:none;">
       <% @p.images.each do |img| %>
@@ -25,11 +24,10 @@
 
       <% if @product.has_variants? %>
         <% @product.variant_images.each do |i| %>
-          <% next if @product.images.include?(i) %>
+          <% next if @p.images.include?(i) %>
           <%= link_to image_tag(i.attachment.url(:product)), i.attachment.url(Spree::ProductZoom::Config.default_image_style), :class => 'fancybox', :rel => 'gallery' %>
         <% end %>
       <% end %>
     </div>
-
   <% end %>
 <% end %>
