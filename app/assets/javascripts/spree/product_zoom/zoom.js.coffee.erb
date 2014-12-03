@@ -37,10 +37,9 @@ show_variant_images = (variant_id) ->
 
   ($ 'li.vtmb').hide()
   ($ 'li.tmb-' + variant_id).show()
-
-  ($ '#gallery .fancybox').removeClass 'fancybox'
-  ($ '#gallery .productid-' + variant_id).addClass 'fancybox'
-
+  if ($ '#gallery .productid-' + variant_id).length > 0
+    ($ '#gallery .fancybox').removeClass 'fancybox'
+    ($ '#gallery .productid-' + variant_id).addClass 'fancybox'
   currentThumb = ($ '#' + ($ '#main-image').data('selectedThumbId'))
   if not currentThumb.hasClass('vtmb-' + variant_id) and not currentThumb.hasClass('tmb-all')
     thumb = ($ ($ 'ul.thumbnails li:visible').eq(0))
