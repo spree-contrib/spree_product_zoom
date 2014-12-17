@@ -1,0 +1,3 @@
+Don't know how to add the images with FactoryGirl.
+
+Copy these folders into 'dummy/public/spree/products' to run 'spec/features/zoom_spec.rb'.
