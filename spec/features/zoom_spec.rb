@@ -64,11 +64,11 @@ feature "gallery", :js => true do
 
     show_gallery
 
+    # 2 from master, 2 from variant
     page.should have_css("#gallery a", count: 4)
-    # should this count be 2?
+    # maybe only the master images should be shown?
     page.should have_css("#gallery a.fancybox", count: 4)
-
-    page.should have_css("#gallery a.productid-#{@product.master.id}.fancybox", count: 2)
+    page.should have_css("#gallery a.productid-#{@product.master.id}", count: 2)
     page.should have_css("#gallery a.productid-#{variant2.id}", count: 2)
 
     page.choose("variant_id_#{variant2.id}")
