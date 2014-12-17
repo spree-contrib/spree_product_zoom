@@ -39,6 +39,7 @@ feature "gallery", :js => true do
     variant1 = get_variant(1)
 
     attach_images(@product.master)
+    expect(@product.images.length).to be(2)
 
     visit "/products/#{@product.id}"
     page.should have_css("img.click-to-zoom", count: 1)
@@ -58,6 +59,8 @@ feature "gallery", :js => true do
 
     attach_images(@product.master)
     attach_images(variant2)
+    expect(@product.images.length).to eq(2)
+    expect(@product.variant_images.length).to eq(4)
 
     visit "/products/#{@product.id}"
     page.should have_css("img.click-to-zoom", count: 1)
@@ -66,14 +69,13 @@ feature "gallery", :js => true do
 
     # 2 from master, 2 from variant
     page.should have_css("#gallery a", count: 4)
-    # maybe only the master images should be shown?
-    page.should have_css("#gallery a.fancybox", count: 4)
+    page.should have_css("#gallery a.master", count: 2)
+    page.should have_css("#gallery a.fancybox", count: 2)
     page.should have_css("#gallery a.productid-#{@product.master.id}", count: 2)
     page.should have_css("#gallery a.productid-#{variant2.id}", count: 2)
 
     page.choose("variant_id_#{variant2.id}")
-    page.should have_css("#gallery a.fancybox", count: 2)
-    page.should have_css("#gallery a.productid-#{variant2.id}.fancybox", count: 2)
+    page.should have_css("#gallery a.fancybox", count: 4)
   end
 
   scenario "product with 2 variants and 2 attached images to each variant" do
@@ -84,6 +86,8 @@ feature "gallery", :js => true do
 
     attach_images(variant1)
     attach_images(variant2)
+    expect(@product.images.length).to eq(0)
+    expect(@product.variant_images.length).to eq(4)
 
     visit "/products/#{@product.id}"
     page.should have_css("img.click-to-zoom", count: 1)
@@ -91,6 +95,7 @@ feature "gallery", :js => true do
     show_gallery
 
     page.should have_css("#gallery a", count: 4)
+    page.should have_css("#gallery a.master", count: 0)
     page.should have_css("#gallery a.fancybox", count: 2)
     page.should have_css("#gallery a.productid-#{variant1.id}.fancybox", count: 2)
     page.should have_css("#gallery a.productid-#{variant2.id}", count: 2)
