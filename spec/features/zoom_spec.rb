@@ -16,6 +16,9 @@ feature "gallery", :js => true do
     attach_images(@product.master)
 
     visit "/products/#{@product.id}"
+
+    expect(page.evaluate_script 'typeof $.fancybox').to eq('function')
+
     within("div#main-image") do
       # ERROR zoom.gif is being overwritten here:
       # javascript product.js.coffee
@@ -42,12 +45,15 @@ feature "gallery", :js => true do
     expect(@product.images.length).to be(2)
 
     visit "/products/#{@product.id}"
-    page.should have_css("img.click-to-zoom", count: 1)
 
-    show_gallery
+    within("div#main-image") do
+      page.should have_css("img.click-to-zoom", count: 1)
 
-    page.should have_css("#gallery a", count: 2)
-    page.should have_css("#gallery a.productid-#{@product.master.id}.fancybox", count: 2)
+      show_gallery
+
+      page.should have_css("#gallery a", count: 2)
+      page.should have_css("#gallery a.productid-#{@product.master.id}.fancybox", count: 2)
+    end
   end
 
 
@@ -63,6 +69,7 @@ feature "gallery", :js => true do
     expect(@product.variant_images.length).to eq(4)
 
     visit "/products/#{@product.id}"
+
     page.should have_css("img.click-to-zoom", count: 1)
 
     show_gallery
@@ -100,11 +107,11 @@ feature "gallery", :js => true do
     page.should have_css("#gallery a.productid-#{variant1.id}.fancybox", count: 2)
     page.should have_css("#gallery a.productid-#{variant2.id}", count: 2)
 
-
     page.choose("variant_id_#{variant2.id}")
     page.should have_css("#gallery a.fancybox", count: 2)
     page.should have_css("#gallery a.productid-#{variant2.id}.fancybox", count: 2)
   end
+
 
   def show_gallery
     # gallery is hidden, selenium-webdriver only knows visible elements
