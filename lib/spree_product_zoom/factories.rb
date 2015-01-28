@@ -1,5 +1,3 @@
-include ActionDispatch::TestProcess
-
 FactoryGirl.define do
   factory :product1, class: Spree::Product do
     name "Some Product"

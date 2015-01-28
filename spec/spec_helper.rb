@@ -6,6 +6,7 @@ require File.expand_path('../dummy/config/environment.rb',  __FILE__)
 require 'rspec/rails'
 require 'database_cleaner'
 require 'ffaker'
+require 'fileutils'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -20,6 +21,14 @@ require 'spree/testing_support/url_helpers'
 
 # Requires factories defined in lib/spree_product_zoom/factories.rb
 require 'spree_product_zoom/factories'
+
+# Are the required product images in place?
+product_image_path = File.expand_path('../dummy/public/spree/products/', __FILE__)
+if (!File.directory?(product_image_path))
+  src_path = File.expand_path('../products_images', __FILE__)
+  FileUtils.copy_entry src_path, product_image_path
+end
+
 
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
