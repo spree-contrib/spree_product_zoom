@@ -1,23 +1,42 @@
-<% if defined?(image) && image %> 
+<% if defined?(image) && image %>
   <%= link_to image_tag(image.attachment.url(:product), :itemprop => "image"), image.attachment.url(:original), :class => 'fancybox zoom-image' %>
   <br />
-  <%= link_to image_tag('zoom.gif'), image.attachment.url(:original), :class => 'fancybox zoom-image' %>
+  <%= link_to image.attachment.url(:original), :class => 'fancybox zoom-image' %>
 <% else %>
-  <% if @product.images.empty? %>
-    <%= product_image(@product, :itemprop => "large") %>
+  <% if (@product.images.empty?) and (@product.has_variants? and @product.variant_images.empty?) %>
+     <%= product_image(@product, :itemprop => "large") %>
   <% else %>
-    <%= link_to product_image(@product, :itemprop => "image", :class => 'zoom-click'), @product.images.first.attachment.url(Spree::ProductZoom::Config.default_image_style), :class => 'zoom-image large-image zoom-click', :rel => 'gallery' %>
-    <br />
-    <%= link_to image_tag('zoom.gif', :class => 'click-to-zoom'), @product.images.first.attachment.url(Spree::ProductZoom::Config.default_image_style), :class => 'zoom-image click-to-zoom', :rel => 'gallery' %>
+
+    <% if @product.images.empty? %>
+      <% @p = @product.variants.first %>
+    <% else %>
+      <% @p = @product %>
+    <% end %>
+
+    <%= link_to product_image(@product, :itemprop => "image", :class => 'zoom-click'), @p.images.first.attachment.url(Spree::ProductZoom::Config.default_image_style), :class => 'zoom-image large-image zoom-click', :rel => 'gallery' %>
+	 <br/>
+
+	 <!-- PROBLEM: still in div#main-image, will be overwritten by javascript -->
+	 <%= link_to image_tag('zoom.gif', alt: 'zoom image', class: 'click-to-zoom'), @p.images.first.attachment.url(Spree::ProductZoom::Config.default_image_style), :class => 'zoom-image click-to-zoom', :rel => 'gallery' %>
 
     <div id="gallery" style="display:none;">
       <% @product.images.each do |img| %>
-          <%= link_to image_tag(img.attachment.url(:product)), img.attachment.url(Spree::ProductZoom::Config.default_image_style), :class => 'fancybox', :rel => 'gallery' %>
+        <% clazz = 'master productid-' + @p.id.to_s + ' fancybox' %>
+        <%= link_to image_tag(img.attachment.url(:product)), img.attachment.url(Spree::ProductZoom::Config.default_image_style), :class => clazz, :rel => 'gallery' %>
       <% end %>
+
       <% if @product.has_variants? %>
-        <% @product.variant_images.each do |i| %>
-          <% next if @product.images.include?(i) %>
-          <%= link_to image_tag(i.attachment.url(:product)), i.attachment.url(Spree::ProductZoom::Config.default_image_style), :class => 'fancybox', :rel => 'gallery' %>
+		  <% first_variant_id = @product.variants.first.id %>
+        <% @product.variants.each do |variant| %>
+		    <% if first_variant_id == variant.id %>
+            <% clazz = 'fancybox productid-' + variant.id.to_s %>
+			 <% else %>
+            <% clazz = 'productid-' + variant.id.to_s %>
+			 <% end %>
+          <% variant.images.each do |i| %>
+            <% next if @product.images.include?(i) %>
+            <%= link_to image_tag(i.attachment.url(:product)), i.attachment.url(Spree::ProductZoom::Config.default_image_style), :class => clazz, :rel => 'gallery' %>
+          <% end %>
         <% end %>
       <% end %>
     </div>

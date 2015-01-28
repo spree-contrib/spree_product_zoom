@@ -1,0 +1,10 @@
+/*
+Placeholder manifest file.
+the installer will append this file to the app vendored assets here: 'vendor/assets/stylesheets/spree/frontend/all.css'
+*/
+
+/*
+ *= require fancybox
+*/
+
+#product-images #main-image img.click-to-zoom { min-height: 0px; height: 12px; }

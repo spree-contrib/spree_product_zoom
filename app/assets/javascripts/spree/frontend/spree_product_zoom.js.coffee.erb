@@ -32,15 +32,24 @@ add_image_handlers = ->
     event.preventDefault()
 
 show_variant_images = (variant_id) ->
+  # ERROR: was overwritten by showVariantImages
+  ($ 'img.click-to-zoom').attr 'src', "<%= asset_path('zoom.gif') %>"
+
   ($ 'li.vtmb').hide()
-  ($ 'li.vtmb-' + variant_id).show()
+  ($ 'li.tmb-' + variant_id).show()
+  if ($ '#gallery .productid-' + variant_id).length > 0
+    ($ '#gallery .fancybox').removeClass 'fancybox'
+	 # product master variant images should always be shown
+    ($ '#gallery .master').addClass 'fancybox'
+    ($ '#gallery .productid-' + variant_id).addClass 'fancybox'
   currentThumb = ($ '#' + ($ '#main-image').data('selectedThumbId'))
   if not currentThumb.hasClass('vtmb-' + variant_id) and not currentThumb.hasClass('tmb-all')
     thumb = ($ ($ 'ul.thumbnails li:visible').eq(0))
     newImg = thumb.find('a').attr('href')
     ($ 'ul.thumbnails li').removeClass 'selected'
     thumb.addClass 'selected'
-    ($ '#main-image img').attr 'src', newImg
+    # do not overwrite img.click-to-zoom
+    ($ '#main-image img.zoom-click').attr 'src', newImg
     ($ '#main-image').data 'selectedThumb', newImg
     ($ '#main-image').data 'selectedThumbId', thumb.attr('id')
 
