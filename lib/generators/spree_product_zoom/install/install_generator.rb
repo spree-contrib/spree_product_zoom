@@ -7,7 +7,13 @@ module SpreeProductZoom
       end
 
       def add_stylesheets
-        inject_into_file 'vendor/assets/stylesheets/spree/frontend/all.css', " *= require spree/product_zoom\n", :before => /\*\//, :verbose => true
+        if File.exists?('vendor/assets/stylesheets/spree/frontend/all.css')
+          inject_into_file 'vendor/assets/stylesheets/spree/frontend/all.css', " *= require spree/product_zoom\n", :before => /\*\//, :verbose => true
+        elsif File.exists?('vendor/assets/stylesheets/spree/frontend/all.css.scss')
+          append_file 'vendor/assets/stylesheets/spree/frontend/all.css.scss', "\n@import 'spree/product_zoom'\n"
+        elsif File.exists?('vendor/assets/stylesheets/spree/frontend/all.scss')  
+          append_file 'vendor/assets/stylesheets/spree/frontend/all.scss', "\n@import 'spree/product_zoom'\n"
+        end
       end
     end
   end
