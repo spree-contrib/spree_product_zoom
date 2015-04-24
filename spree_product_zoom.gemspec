@@ -4,7 +4,7 @@ Gem::Specification.new do |s|
   s.name        = 'spree_product_zoom'
   s.version     = '2.2'
   s.summary     = 'Add product image zoom functionality via a lightbox'
-  s.required_ruby_version = '>= 1.8.7'
+  s.required_ruby_version = '>= 1.9.3'
 
   s.author    = 'John Dyer'
   s.email     = 'jdyer@spreecommerce.com'
