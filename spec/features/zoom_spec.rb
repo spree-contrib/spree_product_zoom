@@ -47,12 +47,12 @@ feature "gallery", :js => true do
     visit "/products/#{@product.id}"
 
     within("div#main-image") do
-      page.should have_css("img.click-to-zoom", count: 1)
+      expect(page).to have_css("img.click-to-zoom", count: 1)
 
       show_gallery
 
-      page.should have_css("#gallery a", count: 2)
-      page.should have_css("#gallery a.productid-#{@product.master.id}.fancybox", count: 2)
+      expect(page).to have_css("#gallery a", count: 2)
+      expect(page).to have_css("#gallery a.productid-#{@product.master.id}.fancybox", count: 2)
     end
   end
 
@@ -70,19 +70,19 @@ feature "gallery", :js => true do
 
     visit "/products/#{@product.id}"
 
-    page.should have_css("img.click-to-zoom", count: 1)
+    expect(page).to have_css("img.click-to-zoom", count: 1)
 
     show_gallery
 
     # 2 from master, 2 from variant
     page.should have_css("#gallery a", count: 4)
-    page.should have_css("#gallery a.master", count: 2)
-    page.should have_css("#gallery a.fancybox", count: 2)
-    page.should have_css("#gallery a.productid-#{@product.master.id}", count: 2)
-    page.should have_css("#gallery a.productid-#{variant2.id}", count: 2)
+    expect(page).to have_css("#gallery a.master", count: 2)
+    expect(page).to have_css("#gallery a.fancybox", count: 2)
+    expect(page).to have_css("#gallery a.productid-#{@product.master.id}", count: 2)
+    expect(page).to have_css("#gallery a.productid-#{variant2.id}", count: 2)
 
     page.choose("variant_id_#{variant2.id}")
-    page.should have_css("#gallery a.fancybox", count: 4)
+    expect(page).to have_css("#gallery a.fancybox", count: 4)
   end
 
   scenario "product with 2 variants and 2 attached images to each variant" do
@@ -97,19 +97,19 @@ feature "gallery", :js => true do
     expect(@product.variant_images.length).to eq(4)
 
     visit "/products/#{@product.id}"
-    page.should have_css("img.click-to-zoom", count: 1)
+    expect(page).to have_css("img.click-to-zoom", count: 1)
 
     show_gallery
 
-    page.should have_css("#gallery a", count: 4)
-    page.should have_css("#gallery a.master", count: 0)
-    page.should have_css("#gallery a.fancybox", count: 2)
-    page.should have_css("#gallery a.productid-#{variant1.id}.fancybox", count: 2)
-    page.should have_css("#gallery a.productid-#{variant2.id}", count: 2)
+    expect(page).to have_css("#gallery a", count: 4)
+    expect(page).to have_css("#gallery a.master", count: 0)
+    expect(page).to have_css("#gallery a.fancybox", count: 2)
+    expect(page).to have_css("#gallery a.productid-#{variant1.id}.fancybox", count: 2)
+    expect(page).to have_css("#gallery a.productid-#{variant2.id}", count: 2)
 
     page.choose("variant_id_#{variant2.id}")
-    page.should have_css("#gallery a.fancybox", count: 2)
-    page.should have_css("#gallery a.productid-#{variant2.id}.fancybox", count: 2)
+    expect(page).to have_css("#gallery a.fancybox", count: 2)
+    expect(page).to have_css("#gallery a.productid-#{variant2.id}.fancybox", count: 2)
   end
 
 

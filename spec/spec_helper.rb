@@ -24,10 +24,10 @@ require 'spree_product_zoom/factories'
 
 # Are the required product images in place?
 product_image_path = File.expand_path('../dummy/public/spree/products/', __FILE__)
-if (!File.directory?(product_image_path))
-  src_path = File.expand_path('../products_images', __FILE__)
-  FileUtils.copy_entry src_path, product_image_path
-end
+src_path = File.expand_path('../products_images', __FILE__)
+
+FileUtils.mkdir_p(product_image_path) unless File.exists?(product_image_path)
+FileUtils.copy_entry src_path, product_image_path
 
 
 RSpec.configure do |config|
