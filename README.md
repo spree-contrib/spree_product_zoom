@@ -31,11 +31,6 @@ in order to copy over the required css and js files.
 Once installation is complete your product images can be zoomed by clicking on the "Zoom In" button beneath an image.
 
 
-Update
-======
-
-The entries for the javascript and stylesheet in all.js and all.css have been changed for compatability reasons.
-
 Configuration
 =========
 
